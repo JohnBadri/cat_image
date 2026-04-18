@@ -10,7 +10,12 @@ class CatURLService {
     final response = await http.get(uri);
 
     if (response.statusCode == 200) {
-      return CatImageModel.fromJson(jsonDecode(response.body));
+      final List<dynamic> data = jsonDecode(response.body);
+      if (data.isNotEmpty) {
+        return CatImageModel.fromJson(data[0]);
+      } else {
+        throw Exception('API returned an empty list');
+      }
     } else {
       return throw Exception(
         'Server was unable to be contacted, Status Code was ${response.statusCode}',

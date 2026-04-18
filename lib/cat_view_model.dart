@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class CatViewModel extends ChangeNotifier {
   final CatURLService service = CatURLService();
-  CatImageModel? catImage;
+  CatImageModel? theCat;
   bool isLoading = false;
   String? errorMessage;
 
@@ -15,7 +15,8 @@ class CatViewModel extends ChangeNotifier {
     errorMessage = null;
     notifyListeners();
     try {
-      catImage = await service.getCatImage();
+      print(theCat);
+      theCat = await service.getCatImage();
     } catch (e) {
       errorMessage = 'There was an error: ${e}';
     } finally {
